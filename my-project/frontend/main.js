@@ -8,7 +8,7 @@
 
 const GEMINI_API_KEY = "AIzaSyAyUAGTFFwaa8moT_AwYc15FPdBbCscSAk"; // <-- Replace with your Gemini API key
 
-const chat = document.getElementById('chat');
+const bubbles = document.getElementById('bubbles');
 const form = document.getElementById('msgForm');
 const input = document.getElementById('inputMsg');
 
@@ -19,20 +19,31 @@ Anna: Hi Nosy!
 Nosy: Oh, it's you again. What do you want this time?
 `;
 
-function appendMessage(text, sender) {
-  const div = document.createElement('div');
-  div.className = 'bubble ' + sender;
-  div.textContent = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+function appendBubble(text, sender) {
+  const row = document.createElement('div');
+  row.className = 'bubble-row';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble ' + sender;
+  bubble.textContent = text;
+
+  if (sender === 'nosy') {
+    row.style.justifyContent = 'flex-start';
+    row.appendChild(bubble);
+  } else if (sender === 'anna') {
+    row.style.justifyContent = 'flex-end';
+    row.appendChild(bubble);
+  } else {
+    bubble.className = 'bubble system';
+    row.style.justifyContent = 'center';
+    row.appendChild(bubble);
+  }
+
+  bubbles.appendChild(row);
+  bubbles.scrollTop = bubbles.scrollHeight;
 }
 
 function appendSystemMessage(text) {
-  const div = document.createElement('div');
-  div.className = 'bubble system';
-  div.textContent = text;
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
+  appendBubble(text, 'system');
 }
 
 async function fetchGeminiReply(userMsg) {
@@ -75,13 +86,13 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const msg = input.value.trim();
   if (!msg) return;
-  appendMessage(msg, 'anna');
+  appendBubble(msg, 'anna');
   input.value = '';
   input.focus();
 
   try {
     const reply = await fetchGeminiReply(msg);
-    appendMessage(reply, 'nosy');
+    appendBubble(reply, 'nosy');
   } catch (err) {
     appendSystemMessage('Error: ' + (err.message || 'Could not reach Gemini.'));
   }

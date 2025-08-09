@@ -9,8 +9,20 @@
 <body>
   <div class="container">
     <h1>Nosy — Roleplay Chat</h1>
-    <div id="chat" class="chat" aria-live="polite"></div>
-    <form id="msgForm" autocomplete="off">
+    <div class="chat-area">
+      <div id="bubbles" class="bubbles" aria-live="polite"></div>
+      <div class="characters-row">
+        <div class="character nosy">
+          <img src="umbrige.jpeg" alt="Nosy" />
+          <span class="char-label">Nosy</span>
+        </div>
+        <div class="character user">
+          <img src="hermonie.jpeg" alt="Anna" />
+          <span class="char-label">Anna</span>
+        </div>
+      </div>
+    </div>
+    <form id="msgForm" autocomplete="off" class="input-row">
       <input id="inputMsg" placeholder="Anna: type something…" autocomplete="off" />
       <button type="submit">Send</button>
     </form>
