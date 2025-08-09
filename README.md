@@ -23,13 +23,10 @@ A chat simulator that lets you deliver those comebacks in a fake conversation, p
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- CSS, HTML, Python, Javascript
-- [Frameworks used]
-  Fastapi
+- CSS, HTML, Javascript
   
 - [Libraries used]
   Google Gen AI
-  pydantic
   
 - [Tools used]
   Google gemini api
